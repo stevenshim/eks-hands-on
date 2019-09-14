@@ -19,16 +19,16 @@ module "vpc" {
   eks_cluster_name = local.eks_cluster_name
 }
 
-//module "eks" {
-//  source = "./modules/eks"
-//
-//  vpc_id = module.vpc.vpc_id
-//  vpc_public_subnet_ids = module.vpc.vpc_public_subnet_ids
-//  vpc_private_subnet_ids = module.vpc.vpc_private_subnet_ids
-//  vpc_cidr_block = module.vpc.vpc_cidr_block
-//
-//  project_name = local.project_name
-//  kubectl_ec2_keypair = var.kubectl_ec2_keypair
-//  eks_version = var.eks_version
-//
-//}
+module "eks" {
+  source = "./modules/eks"
+
+  vpc_id = module.vpc.vpc_id
+  vpc_public_subnet_ids = module.vpc.vpc_public_subnet_ids
+  vpc_private_subnet_ids = module.vpc.vpc_private_subnet_ids
+  vpc_cidr_block = module.vpc.vpc_cidr_block
+
+  project_name = local.project_name
+  kubectl_ec2_keypair = var.kubectl_ec2_keypair
+  eks_version = var.eks_version
+
+}

@@ -90,5 +90,4 @@ resource "aws_launch_configuration" "eks_app_worker_nodes" {
     volume_type = "gp2"
     delete_on_termination = true
   }
-
 }
