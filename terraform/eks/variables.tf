@@ -7,4 +7,4 @@ variable "eks_version" {
   default = 1.14
 }
 
-variable "aws_krug_admin" {}
+variable "aws_krug_admin_role" {}

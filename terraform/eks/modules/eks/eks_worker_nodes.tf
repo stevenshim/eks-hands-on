@@ -68,10 +68,10 @@ resource "aws_iam_instance_profile" "eks_app_worker_node_profile" {
   role = aws_iam_role.eks_worker_node_role.name
 }
 
-resource "aws_launch_configuration" "eks_app_worker_nodes" {
-  name_prefix                   = "${aws_eks_cluster.eks_cluster.name}_worker_node"
-  associate_public_ip_address   = var.eks_worker_node_public_ip
-  security_groups               = [
+resource "aws_launch_configuration" "eks_worker_nodes_lc" {
+  name_prefix = "${aws_eks_cluster.eks_cluster.name}_worker_node"
+  associate_public_ip_address = var.eks_worker_node_public_ip
+  security_groups = [
     aws_security_group.eks_worker_nodes_sg.id
   ]
   iam_instance_profile          = aws_iam_instance_profile.eks_app_worker_node_profile.name
@@ -90,4 +90,33 @@ resource "aws_launch_configuration" "eks_app_worker_nodes" {
     volume_type = "gp2"
     delete_on_termination = true
   }
+}
+
+resource "aws_autoscaling_group" "eks_worker_nodes_asg" {
+  launch_configuration = aws_launch_configuration.eks_worker_nodes_lc.id
+  desired_capacity = lookup(var.eks_worker_nodes_asg_group, "desire")
+  min_size = lookup(var.eks_worker_nodes_asg_group, "min")
+  max_size = lookup(var.eks_worker_nodes_asg_group, "max")
+  name = "${aws_eks_cluster.eks_cluster.name}-worker"
+  vpc_zone_identifier = [
+    var.vpc_private_subnet_ids[0],
+    var.vpc_private_subnet_ids[1],
+    var.vpc_private_subnet_ids[2]
+  ]
+
+  tag {
+    key = "Name"
+    value = "${aws_eks_cluster.eks_cluster.name}-worker"
+    propagate_at_launch = true
+  }
+
+  tag {
+    key = "Managed_by"
+    value = "terraform"
+    propagate_at_launch = true
+  }
+
+  depends_on = [
+    "aws_launch_configuration.eks_worker_nodes_lc"
+  ]
 }

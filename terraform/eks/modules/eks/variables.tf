@@ -6,13 +6,10 @@ variable "project_name" {}
 variable "eks_version" {}
 variable "kubectl_ec2_keypair" {}
 variable "vpc_cidr_block" {}
+variable "aws_krug_admin_role" {}
 
 // From here,
 // variables with default value.
-variable "kubectl_ec2_role_name" {
-  default = "kubectl_ec2_role"
-}
-
 variable "kubectl_image_id" {
   default = "ami-0fd02cb7da42ee5e0"
   description = "Ubuntu Server 18.04 LTS"
@@ -52,4 +49,12 @@ variable "eks_worker_user_data_group" {
 
 variable "eks_worker_nodes_enable_monitoring" {
   default = false
+}
+
+variable "eks_worker_nodes_asg_group" {
+  default = {
+    min = 2
+    max = 2
+    desire = 2
+  }
 }

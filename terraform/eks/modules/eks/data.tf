@@ -16,3 +16,4 @@ data "template_file" "eks_worker_node_userdata" {
     kubelet_extra_args   = lookup(var.eks_worker_user_data_group, "kubelet_extra_args")
   }
 }
+
