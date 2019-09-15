@@ -31,7 +31,7 @@ variable "eks_worker_node_volume_size" {
 
 variable "eks_worker_node_ami_id" {
   default = "ami-023bb403131889300"
-  description = "AMI compatibles with 1.14 EKS"
+  description = "AMI compatibles with 1.14.6 EKS"
 }
 
 variable "eks_worker_node_ec2_type" {

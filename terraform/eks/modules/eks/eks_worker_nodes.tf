@@ -68,6 +68,21 @@ resource "aws_iam_instance_profile" "eks_app_worker_node_profile" {
   role = aws_iam_role.eks_worker_node_role.name
 }
 
+resource "aws_iam_role_policy_attachment" "eks_app_worker_role_AmazonEKSWorkerNodePolicy" {
+  policy_arn          =   "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+  role                =   aws_iam_role.eks_worker_node_role.name
+}
+
+resource "aws_iam_role_policy_attachment" "eks_app_worker_role_AmazonEKS_CNI_Policy" {
+  policy_arn          =   "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+  role                =   aws_iam_role.eks_worker_node_role.name
+}
+
+resource "aws_iam_role_policy_attachment" "eks_app_worker_role_AmazonEC2ContainerRegistryReadOnly" {
+  policy_arn          =   "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+  role                =   aws_iam_role.eks_worker_node_role.name
+}
+
 resource "aws_launch_configuration" "eks_worker_nodes_lc" {
   name_prefix = "${aws_eks_cluster.eks_cluster.name}_worker_node"
   associate_public_ip_address = var.eks_worker_node_public_ip
