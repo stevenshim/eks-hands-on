@@ -3,3 +3,4 @@
 *.tfstate
 *.tfstate.backup
 local.tfvars
+ansible_helper.sh

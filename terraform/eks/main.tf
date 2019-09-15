@@ -33,3 +33,10 @@ module "eks" {
   aws_krug_admin_role = var.aws_krug_admin_role
 
 }
+
+module "ansible" {
+  source = "./modules/ansible"
+  kubectl_ec2_private_ip = module.eks.kubectl_ec2_private_ip
+  eks_cluster_name = module.eks.eks_cluster_name
+  eks_worker_role_arn = module.eks.eks_worker_role_arn
+}
