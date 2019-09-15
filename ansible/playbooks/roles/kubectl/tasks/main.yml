@@ -1,0 +1,53 @@
+---
+- name: Download and install kubectl binary.
+  get_url:
+    url: https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/kubectl
+    dest: /usr/bin/kubectl
+    mode: 0755
+
+- name: Download & install aws-iam-authenticator binary.
+  get_url:
+    url: https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/aws-iam-authenticator
+    dest: /usr/bin/aws-iam-authenticator
+    mode: 0755
+
+- name: Create directory AWS configuration.
+  file:
+    path: ~/.aws
+    state: directory
+
+- name: Configure AWS CLI.
+  template:
+    src: aws_config.tmpl
+    dest: ~/.aws/config
+    mode: 0644
+
+- name: Create a kubeconfig for Amazon EKS
+  command: aws eks update-kubeconfig --name {{ eks_cluster_name }}
+
+- name: Create config map file for Amazon EKS
+  template:
+    src: aws-auth-cm.tmpl
+    dest: ~/aws-auth-cm.yaml
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Apply config map for EKS
+  command: kubectl apply -f ~/aws-auth-cm.yaml
+
+- name: Create config map file for Amazon EKS
+  template:
+    src: aws-k8s-cni.yml
+    dest: ~/aws-k8s-cni.yml
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Apply EKS CNI Plug-in.
+  command: kubectl apply -f ~/aws-k8s-cni.yml
+
+- name: Add kubectl alias.
+  template:
+    src: alias.tmpl
+    dest: /etc/profile.d/alias.sh

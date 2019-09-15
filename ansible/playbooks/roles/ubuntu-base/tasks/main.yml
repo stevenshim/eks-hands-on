@@ -1,0 +1,20 @@
+---
+- name: apt update
+  apt:
+    update_cache: yes
+
+- name: Install ubuntu packages.
+  apt:
+    name: "{{ item }}"
+  loop:
+    - curl
+    - python3-pip
+
+- name: Install pip packages.
+  pip:
+    name: "{{ item }}"
+  loop:
+    - awscli
+    - botocore
+    - boto3
+
