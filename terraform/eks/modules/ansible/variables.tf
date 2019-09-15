@@ -1,4 +1,4 @@
-variable "kubectl_ec2_private_ip" {}
+variable "kubectl_ec2_public_ip" {}
 variable "eks_cluster_name" {}
 variable "eks_worker_role_arn" {}
 

@@ -36,7 +36,7 @@ module "eks" {
 
 module "ansible" {
   source = "./modules/ansible"
-  kubectl_ec2_private_ip = module.eks.kubectl_ec2_private_ip
+  kubectl_ec2_public_ip = module.eks.kubectl_ec2_public_ip
   eks_cluster_name = module.eks.eks_cluster_name
   eks_worker_role_arn = module.eks.eks_worker_role_arn
 }
