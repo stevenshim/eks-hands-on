@@ -1,7 +1,7 @@
 
 variable "kubectl_ec2_keypair" {
   description = "EC2 pem key name."
-  default = "hjshim-test-key"
+  default = "aws_krug_workshop"
 }
 variable "eks_version" {
   default = 1.14
