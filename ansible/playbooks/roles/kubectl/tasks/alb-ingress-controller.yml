@@ -1,10 +1,10 @@
 ---
-- name: Create Spinnaker related manifest directory.
+- name: Create eks manifest directory.
   file:
     state: directory
     dest: "/root/k8s-manifests"
 
-- name: Copy Spinnaker related manifest yml files.
+- name: Copy eks manifest yml files.
   template:
     src: "{{ item }}"
     dest: "/root/k8s-manifests/{{ item }}"
