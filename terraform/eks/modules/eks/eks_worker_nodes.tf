@@ -58,6 +58,16 @@ resource "aws_security_group_rule" "eks_workder_node_ingress_between_nodes" {
   type = "ingress"
 }
 
+resource "aws_security_group_rule" "eks_workder_node_ingress_udp_protocol_between_nodes" {
+  source_security_group_id = aws_security_group.eks_worker_nodes_sg.id
+  description = "Allow UDP traffic from worker nodes each other"
+  from_port = 53
+  to_port = 53
+  protocol = "udp"
+  security_group_id = aws_security_group.eks_worker_nodes_sg.id
+  type = "ingress"
+}
+
 resource "aws_iam_role" "eks_worker_node_role" {
   name = var.eks_worker_node_role_name
   assume_role_policy = file("${path.module}/templates/common_ec2_assume_role_policy.json")
