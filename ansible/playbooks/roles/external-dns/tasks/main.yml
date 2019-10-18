@@ -1,0 +1,11 @@
+---
+- name: Template external-dns manifest.
+  template:
+    src: external-dns.tmpl
+    dest: ~/external-dns.yaml
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Apply external-dns.
+  command: kubectl apply -f ~/external-dns.yaml
