@@ -19,7 +19,7 @@ Kubernetes 가 화두가 된지는 이미 조금 되었지만, AWS의 EKS를 주
 
 ## 들어가며
 이번 workshop 을 통해 EKS를 생성하는 과정을 서술한 Architeture 입니다.
-![](images/eks-handson-architecture.png)
+![](../../images/eks-handson-architecture.png)
 
 ## 1. 기본 환경 만들기
 모든 사용자가 같은 환경에서 Terraform 과 Ansible 을 사용할 수 있도록 EC2를 하나 만들어 해당 EC2 내에서 진행합니다.
