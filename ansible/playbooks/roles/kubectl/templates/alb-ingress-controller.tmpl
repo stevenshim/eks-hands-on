@@ -27,8 +27,6 @@ spec:
       labels:
         app: alb-ingress-controller
     spec:
-      nodeSelector:
-        tier: admin
       containers:
         - args:
             # Limit the namespace where this ALB Ingress Controller deployment will
