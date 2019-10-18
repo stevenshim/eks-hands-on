@@ -19,3 +19,4 @@ Kubernetes 가 화두가 된지는 이미 조금 되었지만, AWS의 EKS를 주
 
 # 톺아보기
 * [Part 1 - EKS 시작하기](description/part1/README.md)
+* [Part 2 - EKS 살펴보기 (AWS Resource 제어 관련)](description/part2/README.md)
