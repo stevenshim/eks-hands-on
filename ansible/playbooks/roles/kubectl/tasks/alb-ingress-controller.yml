@@ -1,0 +1,19 @@
+---
+- name: Create Spinnaker related manifest directory.
+  file:
+    state: directory
+    dest: "/root/k8s-manifests"
+
+- name: Copy Spinnaker related manifest yml files.
+  template:
+    src: "{{ item }}"
+    dest: "/root/k8s-manifests/{{ item }}"
+  loop:
+  - alb-ingress-controller.tmpl
+  - alb-sa-rbac-role.tmpl
+
+- name: Create ALB SA RBAC Role.
+  shell: "kubectl apply -f /root/k8s-manifests/alb-sa-rbac-role.tmpl"
+
+- name: Create ALB Ingress Controller.
+  shell: "kubectl apply -f /root/k8s-manifests/alb-ingress-controller.tmpl"
