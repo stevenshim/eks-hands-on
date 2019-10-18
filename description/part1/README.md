@@ -31,7 +31,7 @@ AWS EC2 Console 로 이동하여 default VPC 에 Hands-on 용 EC2 하나를 생�
 생성한 EC2는 아래 조건을 만족하도록 합니다.
 * AMI - OS Amazon Linux 2 AMI 
 * Instance type - t2.micro
-* Public IP assigend (외부에서 접속 가능해야 함)
+* Public IP assigned (외부에서 접속 가능해야 함)
 * Administrator 권한의 IAM Role 할당 (필요시 신규 생성, Role 이름 : aws-krug-admin)
 * pem key 생성 (key 이름 : aws-krug-gudi)
 * 이외 설정은 기본을 따라가도록 합니다.
@@ -99,9 +99,9 @@ $ rm get-pip.py
 $ ansible --version
 ```
 
-#### Git, Vim, Telnet 설치하기
+#### git, vim, telnet, tmux 설치하기
 ```
-$ sudo yum install git vim telnet -y
+$ sudo yum install git vim telnet tmux -y
 ```
 
 ### 1-4 Source Code 받기
@@ -117,6 +117,8 @@ $ git clone https://github.com/stevenshim/eks-hands-on.git
 
 ### 2-1. Terraform Initialize 하기
 ```
+$ tmux
+
 $ cd eks-hands-on/terraform/eks
 
 ### terraform initialize 과정. 느릴 땐 수 분 소요. 
@@ -176,7 +178,7 @@ $ ./ansible_helper.sh
 ```
 
 ### 2-6. kubectl 서버에 접속하기.
-EC2 Console 에 보면 'awskrug_gudi-kubectl-sg' 라는 이름의 EC2 가 생성된걸 볼 수 있습니다.
+EC2 Console 에 보면 'awskrug_gudi-kubectl' 라는 이름의 EC2 가 생성된걸 볼 수 있습니다.
 
 먼저, 이 EC2 의 방화벽에 규칙을 추가하여 여러분의 PC에서 22 port 접속이 가능하게 합니다.
 

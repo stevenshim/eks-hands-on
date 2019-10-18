@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: aws-krug-clb
+  name: aws-kurg-clb
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+  selector:
+    app: nginx
+  sessionAffinity: None
+  type: LoadBalancer

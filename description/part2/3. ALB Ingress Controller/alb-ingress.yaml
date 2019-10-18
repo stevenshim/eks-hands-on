@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: /check
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: instance
+    kubernetes.io/ingress.class: alb
+  labels:
+    app.kubernetes.io/name: aws-krug-alb-ingress
+  name: awskrug-ingress
+spec:
+  rules:
+    - host: console.awskrug.com
+      http:
+        paths:
+          - backend:
+              serviceName: console
+              servicePort: 80
+            path: /*
+    - host: api.awskurg.com
+      http:
+        paths:
+          - backend:
+              serviceName: api
+              servicePort: 80
+            path: /*
