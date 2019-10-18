@@ -1,0 +1,52 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "route53:GetQueryLoggingConfig",
+                "route53:GetHealthCheckLastFailureReason",
+                "route53:GetHealthCheckStatus",
+                "route53:GetChange",
+                "route53:ListTrafficPolicyVersions",
+                "route53:GetHostedZone",
+                "route53:ListTrafficPolicyInstancesByHostedZone",
+                "route53:GetHealthCheck",
+                "route53:GetReusableDelegationSetLimit",
+                "route53:ListVPCAssociationAuthorizations",
+                "route53:GetReusableDelegationSet",
+                "route53:ListTagsForResource",
+                "route53:ListQueryLoggingConfigs",
+                "route53:ListTagsForResources",
+                "route53:ListTrafficPolicyInstancesByPolicy",
+                "route53:ListResourceRecordSets",
+                "route53:GetTrafficPolicyInstance",
+                "route53:GetHostedZoneLimit",
+                "route53:GetTrafficPolicy",
+                "route53:ChangeResourceRecordSets"
+            ],
+            "Resource": "arn:aws:route53:::hostedzone/ZGH5X2G84K2F"
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "route53:ListReusableDelegationSets",
+                "route53:ListTrafficPolicyInstances",
+                "route53:GetTrafficPolicyInstanceCount",
+                "route53:ListHostedZones",
+                "route53:TestDNSAnswer",
+                "route53:ListHostedZonesByName",
+                "route53:GetAccountLimit",
+                "route53:GetCheckerIpRanges",
+                "route53:ListHealthChecks",
+                "route53:ListTrafficPolicies",
+                "route53:GetGeoLocation",
+                "route53:ListGeoLocations",
+                "route53:GetHostedZoneCount",
+                "route53:GetHealthCheckCount"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
