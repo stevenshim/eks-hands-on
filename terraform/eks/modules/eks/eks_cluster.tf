@@ -47,7 +47,7 @@ resource "aws_security_group_rule" "eks_cluster_ingress" {
 
 
 resource "aws_eks_cluster" "eks_cluster" {
-  name = "${var.project_name}-eks-cluster"
+  name = var.eks_cluster_name
   role_arn = aws_iam_role.eks_cluster_role.arn
   version = var.eks_version
 

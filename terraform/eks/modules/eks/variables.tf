@@ -7,6 +7,7 @@ variable "eks_version" {}
 variable "kubectl_ec2_keypair" {}
 variable "vpc_cidr_block" {}
 variable "aws_krug_admin_role" {}
+variable "eks_cluster_name" {}
 
 // From here,
 // variables with default value.

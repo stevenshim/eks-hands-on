@@ -27,6 +27,7 @@ module "eks" {
   vpc_private_subnet_ids = module.vpc.vpc_private_subnet_ids
   vpc_cidr_block = module.vpc.vpc_cidr_block
 
+  eks_cluster_name = local.eks_cluster_name
   project_name = local.project_name
   kubectl_ec2_keypair = var.kubectl_ec2_keypair
   eks_version = var.eks_version
