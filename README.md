@@ -6,7 +6,7 @@ Kubernetes 가 화두가 된지는 이미 조금 되었지만, AWS의 EKS를 주
 또한 실제 환경 구축/운영 중에 놓칠 수 있는 실무 노하우를 포함하여 자료를 구성했습니다.
 
 기존에 널리 알려진 Hands-on 자료는 아래 링크에서 참고할 수 있습니다.
-* [EKS Workshop](https://github.com/stevenshim/easy-ssh-ec2)
+* [EKS Workshop](https://eksworkshop.com/introduction/)
 * [aws-quickstart-amazon-eks](https://github.com/aws-quickstart/quickstart-amazon-eks)
 
 ## Prerequisites
