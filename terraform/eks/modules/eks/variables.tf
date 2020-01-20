@@ -20,36 +20,13 @@ variable "eks_worker_node_role_name" {
   default = "eks_worker_nodes_role"
 }
 
-variable "eks_worker_node_public_ip" {
-  default = false
-  type = bool
-}
-
 variable "eks_worker_node_volume_size" {
   default = "10"
   description = "Gb"
 }
 
-variable "eks_worker_node_ami_id" {
-  default = "ami-023bb403131889300"
-  description = "AMI compatibles with 1.14.6 EKS"
-}
-
 variable "eks_worker_node_ec2_type" {
   default = "t3.small"
-}
-
-variable "eks_worker_user_data_group" {
-  default = {
-    pre_userdata = ""
-    additional_userdata = ""
-    kubelet_extra_args = ""
-    enable_docker_bridge = false
-  }
-}
-
-variable "eks_worker_nodes_enable_monitoring" {
-  default = false
 }
 
 variable "eks_worker_nodes_asg_group" {

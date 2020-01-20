@@ -1,18 +1,3 @@
-//resource "aws_iam_role" "kubectl_role" {
-//  name = var.kubectl_ec2_role_name
-//  assume_role_policy = file("${path.module}/templates/common_ec2_assume_role_policy.json")
-//}
-//
-//resource "aws_iam_instance_profile" "kubectl_role_profile" {
-//  name = aws_iam_role.kubectl_role.name
-//  role = var.kubectl_ec2_role_name
-//}
-//
-//resource "aws_iam_role_policy_attachment" "kubectl_role_policy" {
-//  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
-//  role = aws_iam_role.kubectl_role.name
-//}
-
 resource "aws_security_group" "kubectl_sg" {
   name = "${var.project_name}-kubectl-sg"
   vpc_id = var.vpc_id
