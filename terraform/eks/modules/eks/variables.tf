@@ -8,6 +8,7 @@ variable "kubectl_ec2_keypair" {}
 variable "vpc_cidr_block" {}
 variable "aws_krug_admin_role" {}
 variable "eks_cluster_name" {}
+variable "eks_cluster_role" {}
 
 // From here,
 // variables with default value.
