@@ -36,7 +36,7 @@ variable "eks_worker_node_ami_id" {
 }
 
 variable "eks_worker_node_ec2_type" {
-  default = "t3.micro"
+  default = "t3.small"
 }
 
 variable "eks_worker_user_data_group" {
