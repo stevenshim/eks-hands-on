@@ -19,6 +19,11 @@ module "vpc" {
   eks_cluster_name = local.eks_cluster_name
 }
 
+module "iam" {
+  source = "./modules/iam"
+  eks_cluster = module.eks.eks_cluster
+}
+
 module "eks" {
   source = "./modules/eks"
 
@@ -41,3 +46,4 @@ module "ansible" {
   eks_cluster_name = module.eks.eks_cluster_name
   eks_worker_role_arn = module.eks.eks_worker_role_arn
 }
+

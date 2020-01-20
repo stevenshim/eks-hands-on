@@ -4,7 +4,7 @@ resource "aws_iam_openid_connect_provider" "oidc_iam_provider" {
   client_id_list  = ["sts.amazonaws.com"]
   // AWS EKS ap-northeast-2 oidc(oidc.eks.ap-northeast-2.amazonaws.com) Root CA thumbprint.
   thumbprint_list = ["9e99a48a9960b14926bb7f3b02e22da2b0ab7280"]
-  url             = aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
+  url             = var.eks_cluster.identity[0].oidc[0].issuer
 }
 
 data "aws_iam_policy_document" "oidc_assume_role_policy" {
