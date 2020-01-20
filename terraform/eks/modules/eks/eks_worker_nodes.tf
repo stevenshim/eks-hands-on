@@ -75,13 +75,13 @@ resource "aws_iam_role" "eks_worker_node_role" {
 
 resource "aws_iam_role_policy" "eks_worker_node_role_alb_control_policy" {
   name      =   "eks_worker_node_role_alb_control_policy"
-  role      =   "${aws_iam_role.eks_worker_node_role.id}"
+  role      =   aws_iam_role.eks_worker_node_role.id
   policy    =   file("${path.module}/templates/eks_worker_node_alb_controll_policy.json")
 }
 
 resource "aws_iam_role_policy" "eks_worker_node_role_r53_control_policy" {
   name      =   "eks_worker_node_role_r53_control_policy"
-  role      =   "${aws_iam_role.eks_worker_node_role.id}"
+  role      =   aws_iam_role.eks_worker_node_role.id
   policy    =   file("${path.module}/templates/eks_worker_node_r53_controll_policy.json")
 }
 
@@ -160,6 +160,6 @@ resource "aws_autoscaling_group" "eks_worker_nodes_asg" {
   }
 
   depends_on = [
-    "aws_launch_configuration.eks_worker_nodes_lc"
+    aws_launch_configuration.eks_worker_nodes_lc
   ]
 }

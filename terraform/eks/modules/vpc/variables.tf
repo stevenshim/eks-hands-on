@@ -24,7 +24,11 @@ variable "vpc_public_subnets" {
       name = "public-subnet-c"
     }
   ]
-  type = "list"
+  type = list(object({
+    az = string
+    cidr = string
+    name = string
+  }))
 }
 
 variable "vpc_private_subnets" {
@@ -45,5 +49,9 @@ variable "vpc_private_subnets" {
       name = "private-subnet-c"
     }
   ]
-  type = "list"
+  type = list(object({
+    az = string
+    cidr = string
+    name = string
+  }))
 }
