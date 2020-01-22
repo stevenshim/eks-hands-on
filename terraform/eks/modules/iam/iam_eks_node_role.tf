@@ -4,20 +4,6 @@ resource "aws_iam_role" "eks_worker_node_role" {
   assume_role_policy = file("${path.module}/templates/common_ec2_assume_role_policy.json")
 }
 
-//
-//resource "aws_iam_role_policy" "eks_worker_node_role_alb_control_policy" {
-//  name      =   "eks_worker_node_role_alb_control_policy"
-//  role      =   aws_iam_role.eks_worker_node_role.id
-//  policy    =   file("${path.module}/templates/eks_worker_node_alb_controll_policy.json")
-//}
-//
-//resource "aws_iam_role_policy" "eks_worker_node_role_r53_control_policy" {
-//  name      =   "eks_worker_node_role_r53_control_policy"
-//  role      =   aws_iam_role.eks_worker_node_role.id
-//  policy    =   file("${path.module}/templates/eks_worker_node_r53_controll_policy.json")
-//}
-
-
 resource "aws_iam_instance_profile" "eks_worker_node_instance_profile" {
   name = var.eks_worker_node_role_name
   role = aws_iam_role.eks_worker_node_role.name

@@ -33,6 +33,7 @@ module "eks" {
   vpc_private_subnet_ids = module.vpc.vpc_private_subnet_ids
   vpc_cidr_block = module.vpc.vpc_cidr_block
   eks_cluster_role = module.iam.eks_cluster_role
+  eks_worker_node_role = module.iam.eks_worker_node_role
 
   eks_cluster_name = local.eks_cluster_name
   project_name = local.project_name
@@ -47,6 +48,7 @@ module "ansible" {
   source = "./modules/ansible"
   kubectl_ec2_public_ip = module.eks.kubectl_ec2_public_ip
   eks_cluster_name = module.eks.eks_cluster_name
-  eks_worker_role_arn = module.eks.eks_worker_role_arn
+  eks_worker_role_arn = module.iam.eks_worker_node_role.arn
+  eks_alb_ingress_controller_role_arn = module.iam.eks_alb_ingress_controller_role_arn
 }
 

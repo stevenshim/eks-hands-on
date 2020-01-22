@@ -9,6 +9,7 @@ variable "vpc_cidr_block" {}
 variable "aws_krug_admin_role" {}
 variable "eks_cluster_name" {}
 variable "eks_cluster_role" {}
+variable "eks_worker_node_role" {}
 
 // From here,
 // variables with default value.
@@ -17,9 +18,6 @@ variable "kubectl_image_id" {
   description = "Ubuntu Server 18.04 LTS"
 }
 
-variable "eks_worker_node_role_name" {
-  default = "eks_worker_nodes_role"
-}
 
 variable "eks_worker_node_volume_size" {
   default = "10"
