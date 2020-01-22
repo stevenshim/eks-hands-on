@@ -50,3 +50,103 @@ Console 에서는 IdP 생성할 때 CA Thumbprint 를 자동으로 생성하여 
 
 
 ### 1-3. 샘플 IAM Role 만들기
+
+Terraform 을 이용해서 S3 full access 가 가능한 Sample IAM Role 을 만듭니다.
+
+#### Terraform IAM Role resource 생성
+~/terraform/eks/modules/iam/iam_sample_role.tf 참고.
+
+```yaml
+resource "aws_iam_role" "iam_service_account_sample_role" {
+  name = "iam_service_account_sample_role"
+  assume_role_policy = data.template_file.iam_service_account_sample_role_trust_relationship.rendered
+}
+
+resource "aws_iam_role_policy" "eks_alb_ingress_controller_policy" {
+  name = "eks_alb_ingress_controller_role"
+  role = aws_iam_role.iam_service_account_sample_role.id
+  policy = file("${path.module}/templates/iam_service_account_sample_role_policy.json")
+}
+
+data "template_file" "iam_service_account_sample_role_trust_relationship" {
+  template = file("${path.module}/templates/iam_service_account_sample_role_trust_relation.json.tpl")
+
+  vars = {
+    aws_iam_openid_connect_provider_arn = aws_iam_openid_connect_provider.oidc_iam_provider.arn
+    aws_iam_openid_connect_provider_url = aws_iam_openid_connect_provider.oidc_iam_provider.url
+    alb_ingress_controller_namespace = var.alb_ingress_controller_namespace
+  }
+}
+```
+
+#### Trusted Relationship 설정
+
+Trust Relationship 정책 내용에는 인증 가능한 Namespace, Service Account 등 범위 지정이 가능합니다.
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "${aws_iam_openid_connect_provider_arn}"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringLike": {
+          "${aws_iam_openid_connect_provider_url}:sub": "system:serviceaccount:default:*"
+        }
+      }
+    }
+  ]
+}
+```
+
+### 1-4. 샘플 Service Account 를 만들기
+
+sample-sa.yml 파일을 복사해서 service account 를 만듭니다.
+```bash
+kubectl apply -f sample-sa.yml
+
+kubectl get sa
+```
+sample-pod.yml 파일을 복사해서 pod 를 만듭니다.
+```bash
+kubectl apply -f sample-pod.yml
+
+kubectl get pod kubia -o yaml
+```
+
+pod 의 자세한 정보를 보면 service account 에 IAM 과 관련된 jwt token 이 inject 된걸 볼 수 있습니다.
+```bash
+kubectl get pod kubia -o yaml
+```
+
+```yaml
+...
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: sample-sa-token-hxc2w
+      readOnly: true
+    - mountPath: /var/run/secrets/eks.amazonaws.com/serviceaccount
+      name: aws-iam-token
+      readOnly: true
+...
+```
+
+Pod 내부에서 s3에 접근이 가능한지 테스트 해봅니다.
+```bash
+kubectl exec -it kubia /bin/bash -n default
+
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py
+pip install awscli
+aws s3 ls
+...
+
+```
+
+관련 문서:
+- [Create a IAM Role](https://docs.aws.amazon.com/eks/latest/userguide/create-service-account-iam-policy-and-role.html)
+- [JWT Token rfp docs](https://tools.ietf.org/html/rfc7519#page-9)
